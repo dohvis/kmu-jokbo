@@ -1,5 +1,4 @@
 from flask import (
-    abort,
     flash,
     redirect,
     render_template,
@@ -31,10 +30,21 @@ def upload():
         return render_template('upload.html', form=form)
 
     uploaded_file = request.files['file_']
+    ext = uploaded_file.filename.split('.')[-1]  # pdf, docx, etc..
+    filename = '{}-{}-{}년-{}학기-{}고사.{}'.format(
+        form.subject.data,
+        form.professor.data,
+        form.year.data,
+        form.semester.data,
+        form.case.data,
+        ext,
+    )
+    print(filename, len(filename))
 
-    filename = uploaded_file.filename
-    hashed_filename = sha256(filename)[:32]
-    obj_key = 'files/{}'.format(hashed_filename)
+    obj_key = 'files/'.format(
+        form.subject.data,
+
+    )
 
     s3 = aws_session.resource('s3')
     s3_bucket = s3.Bucket(app.config.get('AWS_S3_BUCKET_NAME'))
@@ -48,13 +58,13 @@ def upload():
         }
     )
     Exam(
-        key=hashed_filename,
+        key=filename,
         subject=form.subject.data,
         professor=form.professor.data,
         year=form.year.data,
-        period=form.period.data,
+        semester=form.semester.data,
         case=form.case.data,
-        file_format=uploaded_file.mimetype,
+        file_format=ext,
     ).save()
 
     flash('시험 정보가 성공적으로 업로드 되었습니다. 감사합니다 :)')

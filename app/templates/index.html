@@ -1,12 +1,47 @@
 {% extends 'base.html' %}
+{% block head %}
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/css/dataTables.semanticui.min.css" />
+    <style>
+        #ExamList tr {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
 {% block content %}
-    <a href="/upload">upload</a>
-    {% for exam in exams %}
-        {{ exam.subject }}
-        {{ exam.professor }}
-        {{ exam.year }}
-        {{ exam.period }}
-        {{ exam.case }}
-        <a href="https://s3.ap-northeast-2.amazonaws.com/kmu-jokbo/files/{{ exam.key }}">{{ exam.file_format }}</a>
-    {% endfor %}
+    <table id="ExamList" class="ui celled table">
+        <thead>
+        <tr>
+            <th>과목</th>
+            <th>교수</th>
+            <th>시험 기간</th>
+            <th>파일</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for exam in exams %}
+            <tr>
+                <td>{{ exam.subject }}</td>
+                <td>{{ exam.professor }}</td>
+                <td>{{ exam.year }} {{ exam.semester }}학기 {{ exam.case }}고사</td>
+                <td>
+                    <a href="https://s3.ap-northeast-2.amazonaws.com/kmu-jokbo/files/{{ exam.key }}">{{ exam.file_format }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/js/dataTables.semanticui.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $('#ExamList').DataTable({
+          "info": false
+        });
+      });
+
+    </script>
 {% endblock %}
