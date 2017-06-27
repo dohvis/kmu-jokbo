@@ -3,3 +3,4 @@
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
+.ebextensions/02_project.config
