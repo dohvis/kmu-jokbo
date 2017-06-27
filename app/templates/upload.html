@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        {{ form.subject }}
+        {{ form.professor }}
+        {{ form.year }}
+        {{ form.period }}
+        {{ form.case }}
+        {{ form.file_ }}
+        <input type="submit">
+    </form>
+    {{ form.errors }}
+{% endblock %}

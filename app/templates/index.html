@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <a href="/upload">upload</a>
+    {% for exam in exams %}
+        {{ exam.subject }}
+        {{ exam.professor }}
+        {{ exam.year }}
+        {{ exam.period }}
+        {{ exam.case }}
+        <a href="https://s3.ap-northeast-2.amazonaws.com/kmu-jokbo/files/{{ exam.key }}">{{ exam.file_format }}</a>
+    {% endfor %}
+{% endblock %}
