@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>국민대 족보</title>
-    {% block head %}{% endblock %}
-    <link rel="stylesheet" type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" />
+  <meta charset="UTF-8">
+  <title>국민대 족보</title>
+  {% block head %}{% endblock %}
+  <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" />
 
-    <style>
-        .main.container {
-            margin-top: 7em;
-        }
-    </style>
+  <style>
+    .main.container {
+      margin-top: 7em;
+    }
+
+    .fixed.menu {
+      height: 58px;
+    }
+  </style>
 </head>
 <body>
 
 <div class="ui fixed inverted menu">
-    <div class="ui container">
-        <a href="/" class="item">Home</a>
-        <a href="/upload" class="item">자료 올리기</a>
-    </div>
+  <div class="ui container">
+    <a href="/" class="item">Home</a>
+    <a href="/upload" class="item">자료 올리기</a>
+  </div>
 </div>
 <div class="ui main container">
-    {% block content %} {% endblock %}
+  {% block content %} {% endblock %}
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-{% block scripts %} {% endblock %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+{% block scripts %} {% endblock %}
 <script>
   $('.message .close').on('click', function () {
     $(this).closest('.message').transition('fade');

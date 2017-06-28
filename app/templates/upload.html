@@ -1,44 +1,48 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form method="POST" action="/upload" enctype="multipart/form-data">
-        {{ form.csrf_token }}
-        <div class="ui input">
-            {{ form.subject(placeholder="과목") }}
-        </div>
+  <form method="POST" action="/upload" enctype="multipart/form-data">
+    {{ form.csrf_token }}
+    <div class="ui input">
+      {{ form.subject(placeholder="과목") }}
+    </div>
 
-        <div class="ui input">
-            {{ form.professor(placeholder="교수") }}
-        </div>
+    <div class="ui input">
+      {{ form.professor(placeholder="교수") }}
+    </div>
 
-        <div>
-            <div class="ui input">
-                {{ form.year(placeholder="년도 ex) 2017") }}
-            </div>
-            <div class="ui input">
-                {{ form.semester }}
-            </div>
-            <div class="ui input">
-                {{ form.case }}
-            </div>
-        </div>
-        <div class="ui input">
-            {{ form.file_ }}
-        </div>
-        <input class="ui primary button" type="submit" value="업로드">
-    </form>
-    {% if form.errors %}
+    <div>
+      <div class="ui input">
+        {{ form.year(placeholder="년도 ex) 2017") }}
+      </div>
+      <div class="ui input">
+        {{ form.semester(class="ui dropdown") }}
+      </div>
+      <div class="ui input">
+        {{ form.case(class="ui dropdown") }}
+      </div>
+    </div>
+    <div class="ui input">
+      {{ form.file_ }}
+    </div>
+    <input class="ui primary button" type="submit" value="업로드">
+  </form>
+  {% if form.errors %}
 
-        <div class="ui error message">
-            <i class="close icon"></i>
-            <div class="header">
-                이상이상
-            </div>
-            <ul class="list">
-                {% for error in form.errors.items() %}
-                    <li>{{ error[1][0] }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-
-    {% endif %}
+    <div class="ui error message">
+      <i class="close icon"></i>
+      <div class="header">
+        이상이상
+      </div>
+      <ul class="list">
+        {% for error in form.errors.items() %}
+          <li>{{ error[1][0] }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endblock %}
+{% block scripts %}
+  <script>
+    $('.ui.dropdown').dropdown();
+  </script>
 {% endblock %}
